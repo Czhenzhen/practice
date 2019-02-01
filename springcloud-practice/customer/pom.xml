@@ -57,6 +57,13 @@
             <version>1.4.6.RELEASE</version>
         </dependency>
 
+       <!-- 添加断路器-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+            <version>1.4.6.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>

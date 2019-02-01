@@ -54,12 +54,6 @@ public class TestController {
         return str;
     }
 
-    @Bean
-    @LoadBalanced//为服务添加负载均衡
-    public RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
-
     @Autowired
     RestTemplate restTemplate;
 
