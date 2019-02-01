@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 
 /**
@@ -26,13 +28,20 @@ public class HelloController {
     private DiscoveryClient client;
 
     @GetMapping("/hello")
-    public String index(){
+    public String index()throws Exception{
         List<ServiceInstance> instances = client.getInstances("eurekaserver");
-        String str = "";
-        for (ServiceInstance instance:instances){
+        ServiceInstance instance = instances.get(0);
+        //让处理的线程等待几秒钟
+        int sleepTime = new Random().nextInt(3000);
+        logger.info("sleepTime:"+sleepTime);
+        Thread.sleep(sleepTime);
+
+        String str = "host:"+instance.getHost()+",port:"+instance.getPort()+",serviceId:"+instance.getServiceId()+"\n";
+        logger.info("host:"+instance.getHost()+",port:"+instance.getPort()+",serviceId:"+instance.getServiceId());
+      /*  for (ServiceInstance instance:instances){
             str += "host:"+instance.getHost()+",port:"+instance.getPort()+",serviceId:"+instance.getServiceId()+"\n";
             logger.info("host:"+instance.getHost()+",port:"+instance.getPort()+",serviceId:"+instance.getServiceId());
-        }
+        }*/
         return str;
     }
 
